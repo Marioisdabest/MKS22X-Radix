@@ -51,7 +51,7 @@ public class MyLinkedList<E>{
     }
     else{
       E nodeValue = node.getValue();
-      System.out.println(node.getValue());
+      //System.out.println(node.getValue());
       return nodeValue.toString() + " " + toString(node.getNext());
     }
 
