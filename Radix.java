@@ -1,4 +1,8 @@
+import java.util.*;
+import java.io.*;
+@SuppressWarnings("unchecked")
 public class Radix{
+
   private static int getDigit(int number, int digitNum){
     return (number%((int) Math.pow(10,digitNum)))/ (int) Math.pow(10,digitNum-1);
   }
@@ -33,6 +37,13 @@ public class Radix{
     }
 
   }
+  public static String toString(int[]data){
+    String to_return = "";
+    for(int i =0; i < data.length; i ++){
+      to_return+= data[i]+" ";
+    }
+    return to_return;
+  }
   public static void main(String[] args){
 
     System.out.println(Radix.getDigit(-4,1));
@@ -44,5 +55,15 @@ public class Radix{
     System.out.println(Radix.getDigit(123456789,7));
     System.out.println(Radix.getDigit(123456789,8));
     System.out.println(Radix.getDigit(123456789,9));
+    int list_size = 10;
+    int max = 10;
+    int[] data = new int[list_size];
+    Random r = new Random();
+    for(int i =0; i < list_size; i ++){
+      data[i]=Math.abs(r.nextInt()%max);
+    }
+    System.out.println(Radix.toString(data));
+    Radix.radixsort(data);
+    System.out.println(Radix.toString(data));
   }
 }
