@@ -117,6 +117,13 @@ public class MyLinkedList<E>{
     //The other list is then reset to size 0 (do not wipe out the nodes, just disconnect them.)
     //This is how you will merge lists together for your radix sort.
   public E removeFront(){
+    if(size == 1){
+      E to_return = first.getValue();
+      first = null;
+      last = null;
+      size--;
+      return to_return;
+    }
     Node toReturn = new Node(first.getValue(), null, null);
     first = first.getNext();
     first.setPrev(null);

@@ -7,22 +7,29 @@ public class Radix{
     return (number%((int) Math.pow(10,digitNum)))/ (int) Math.pow(10,digitNum-1);
   }
   private static void sort(int digit, int[] data){
-    MyLinkedList[] buckets = new MyLinkedList[20];
-    for(int i = 0; i < data.length; i ++){
-      if(data[i]>0){
-        buckets[10 + getDigit(data[i],digit)].add(data[i]);
-      }
-      else{
-        buckets[getDigit(data[i],digit)].add(data[i]);
-      }
+
+    MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
+    for(int i = 0; i < 20; i ++){
+      buckets[i] = new MyLinkedList<Integer>();
+
     }
+    for(int i = 0; i < data.length; i ++){
+      buckets[10 + getDigit(data[i],digit)].add(data[i]);
+    }
+    
     int counter = 0;
-    for(int i = 0; i < 20; i++){
-      while(buckets[i].getSize()>0){
-        data[counter]=buckets[i].removeFront();
+    for(int i = 0; i < 20; i ++){
+      int size = buckets[i].getSize();
+      while(size>0){
+        //System.out.println(size);
+        //System.out.println(buckets[i].toString());
+        int temp = buckets[i].removeFront();
+        data[counter] = temp;
+        size--;
         counter++;
       }
     }
+
   }
   public static void radixsort(int[]data){
     int max = Integer.MIN_VALUE;
@@ -31,8 +38,10 @@ public class Radix{
         max = Math.abs(data[i]);
       }
     }
-    int max_digits = (int) Math.ceil((int) Math.log(max) / (int) Math.log(10));
+    int max_digits = 1 + (int) Math.ceil(((int) Math.log(max))/ (int) Math.log(10));
+    //System.out.println(max_digits);
     for(int i = 1; i < max_digits + 1; i++){
+      //System.out.println(i);
       sort(i,data);
     }
 
@@ -56,11 +65,11 @@ public class Radix{
     System.out.println(Radix.getDigit(123456789,8));
     System.out.println(Radix.getDigit(123456789,9));
     int list_size = 10;
-    int max = 10;
+    int max = 100;
     int[] data = new int[list_size];
     Random r = new Random();
     for(int i =0; i < list_size; i ++){
-      data[i]=Math.abs(r.nextInt()%max);
+      data[i]=r.nextInt()%max;
     }
     System.out.println(Radix.toString(data));
     Radix.radixsort(data);
